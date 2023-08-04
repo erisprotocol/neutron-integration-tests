@@ -29,22 +29,22 @@ describe('Neutron / IBC hooks', () => {
     );
     neutronAccount = new WalletWrapper(
       neutronChain,
-      testState.wallets.neutron.demo1,
+      testState.wallets.neutron.demo1!,
     );
     gaiaChain = new CosmosWrapper(
       testState.sdk2,
       testState.blockWaiter2,
       COSMOS_DENOM,
     );
-    gaiaAccount = new WalletWrapper(gaiaChain, testState.wallets.cosmos.demo2);
+    gaiaAccount = new WalletWrapper(gaiaChain, testState.wallets.cosmos.demo2!);
   });
 
   describe('Wallets', () => {
     test('Addresses', () => {
-      expect(testState.wallets.neutron.demo1.address.toString()).toEqual(
+      expect(testState.wallets.neutron.demo1!.address.toString()).toEqual(
         'neutron1m9l358xunhhwds0568za49mzhvuxx9ux8xafx2',
       );
-      expect(testState.wallets.cosmos.demo2.address.toString()).toEqual(
+      expect(testState.wallets.cosmos.demo2!.address.toString()).toEqual(
         'cosmos10h9stc5v6ntgeygf5xf945njqq5h32r53uquvw',
       );
     });

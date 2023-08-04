@@ -156,6 +156,10 @@ export const NeutronContract = {
   TOKENFACTORY: 'tokenfactory.wasm',
 };
 
+export const ErisContract = {
+  HUB: '../contracts_thirdparty/eris_staking_hub_neutron.wasm',
+}
+
 export type MultiChoiceOption = {
   description: string;
   msgs: any[];

@@ -21,6 +21,7 @@ const config = {
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
   },
+  testEnvironment: 'steps',
 };
 
 module.exports = () => config;

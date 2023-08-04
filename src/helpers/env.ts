@@ -5,6 +5,8 @@ import { wait } from './wait';
 import { promises as fsPromise } from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { gzip } from 'pako';
+
 
 const CONTRACTS_PATH = process.env.CONTRACTS_PATH || './contracts';
 
@@ -14,8 +16,12 @@ const BLOCKS_COUNT_BEFORE_START = process.env.BLOCKS_COUNT_BEFORE_START
 
 let alreadySetUp = false;
 
-export const getContractBinary = async (fileName: string): Promise<Buffer> =>
-  fsPromise.readFile(path.resolve(CONTRACTS_PATH, fileName));
+export const getContractBinary = async (fileName: string): Promise<Buffer> => {
+  let file = await fsPromise.readFile(path.resolve(CONTRACTS_PATH, fileName));
+  let zipped = gzip(file);
+
+  return Buffer.from(zipped);
+}
 
 export const getContractsHashes = async (): Promise<Record<string, string>> => {
   const hashes = {};
@@ -41,7 +47,7 @@ export const setup = async (host1: string, host2: string) => {
   try {
     execSync(`cd setup && make stop-cosmopark`);
     // eslint-disable-next-line no-empty
-  } catch (e) {}
+  } catch (e) { }
   console.log('Starting container... it may take long');
   if (process.env.NO_REBUILD) {
     console.log('NO_REBUILD ENV provided. do not rebuild docker images');
@@ -75,7 +81,7 @@ const waitForHTTP = async (
         return;
       }
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
     await wait(1);
   }
   throw new Error('No port opened');
@@ -105,7 +111,7 @@ export const waitForChannel = async (
         return;
       }
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
     await wait(1);
   }
 

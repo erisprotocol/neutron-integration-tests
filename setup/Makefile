@@ -23,6 +23,8 @@ start-cosmopark-no-rebuild:
 
 stop-cosmopark:
 		@$(COMPOSE) down -t0 --remove-orphans -v
+		
+restart: stop-cosmopark build-gaia start-cosmopark
 
 start-neutron-node:
 		@$(COMPOSE) up neutron-node

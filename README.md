@@ -106,3 +106,11 @@ NO_REBUILD - skip containers rebuilding
 ```
 src/config.json
 ```
+
+
+## CHANGES by ERIS
+
+Change neutron/network/init-gaiad.sh to include
+
+sed -i -e 's/\"allow_messages\":.*/\"allow_messages\": [\"\/cosmos.bank.v1beta1.MsgSend\", \"\/cosmos.staking.v1beta1.MsgDelegate\", \"\/cosmos.staking.v1beta1.MsgUndelegate\", \"\/cosmos.distribution.v1beta1.MsgSetWithdrawAddress\", \"\/cosmos.staking.v1beta1.MsgBeginRedelegate\", \"\/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward\", \"\/ibc.applications.transfer.v1.MsgTransfer\", \"\/cosmos.gov.v1beta1.MsgVoteWeighted\"]/g' "$CHAIN_DIR/config/genesis.json"
+sed -i -e 's/\"unbonding_time\":.*/\"unbonding_time\": \"600s\",/g' "$CHAIN_DIR/config/genesis.json"

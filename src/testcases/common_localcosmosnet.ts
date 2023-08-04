@@ -70,7 +70,16 @@ export class TestStateLocalCosmosTestNet {
   sdk2: cosmosclient.CosmosSDK;
   blockWaiter1: BlockWaiter;
   blockWaiter2: BlockWaiter;
-  wallets: Record<string, Record<string, Wallet>>;
+  wallets: Record<
+  'cosmos'|
+  'neutron'|
+  'qaNeutron'|
+  'qaCosmos'|
+  'qaCosmosTwo'|
+  'qaNeutronThree'|
+  'qaNeutronFour' |
+  'qaNeutronFive'
+  , Record<'val1' | 'demo1'|'demo2' |'icq'|'rly1'|'rly2' | 'genQaWal1', Wallet>>;
   icq_web_host: string;
 
   async init() {
@@ -92,7 +101,7 @@ export class TestStateLocalCosmosTestNet {
       process.env.NODE2_WS_URL || 'ws://localhost:16657',
     );
 
-    this.wallets = {};
+    this.wallets = {} as any;
     const neutron = await walletSet(this.sdk1, neutronPrefix);
     const cosmos = await walletSet(this.sdk2, cosmosPrefix);
 
@@ -167,7 +176,7 @@ export class TestStateLocalCosmosTestNet {
       qaNeutronThree,
       qaNeutronFour,
       qaNeutronFive,
-    };
+    } as any;
     return this.wallets;
   }
 
